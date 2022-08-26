@@ -40,7 +40,7 @@ union TGAImageDesc
 constexpr uint TGAHeaderLength=sizeof(TGAHeader);
 #pragma pack(pop)
 
-bool SaveToTGA(const char *filename,BitmapRGBA8 *bmp)
+bool SaveToTGA(const char *filename,Bitmap4b *bmp)
 {
     int fp;
     errno_t result;
@@ -62,13 +62,13 @@ bool SaveToTGA(const char *filename,BitmapRGBA8 *bmp)
     memset(&header,0,sizeof(TGAHeader));
 
     header.image_type=2;
-    header.width=bmp->width;
-    header.height=bmp->height;
+    header.width=bmp->width();
+    header.height=bmp->height();
     header.bit=32;
     header.image_desc=desc.image_desc;
     
     _write(fp,&header,TGAHeaderLength);
-    _write(fp,bmp->data,bmp->width*bmp->height*4);
+    _write(fp,bmp->data(),bmp->width()*bmp->height()*4);
 
     _close(fp);
 
@@ -77,7 +77,7 @@ bool SaveToTGA(const char *filename,BitmapRGBA8 *bmp)
     return(true);
 }
 
-BitmapRGBA8 *LoadFromTGA(const char *filename)
+Bitmap4b *LoadFromTGA(const char *filename)
 {
     int fp;
     errno_t result;
@@ -101,17 +101,17 @@ BitmapRGBA8 *LoadFromTGA(const char *filename)
 
     color4b *data=new color4b[header.width*header.height];
 
-    BitmapRGBA8 *bmp=new BitmapRGBA8(data,header.width,header.height);
+    Bitmap4b *bmp=new Bitmap4b(new BitmapDataAlloc<color4b>(header.width,header.height));
 
     desc.image_desc=header.image_desc;
 
     if(desc.top_to_bottom)
     {
-        _read(fp,bmp->data,header.width*header.height*4);
+        _read(fp,bmp->data(),header.width*header.height*4);
     }
     else
     {
-        color4b *tp=bmp->data+(header.height-1)*header.width;
+        color4b *tp=bmp->data()+(header.height-1)*header.width;
 
         for(int r=0;r<header.height;r++)
         {

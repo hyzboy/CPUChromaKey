@@ -21,6 +21,9 @@
     <ClCompile Include="tga.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="datatype.h">
