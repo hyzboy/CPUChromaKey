@@ -25,6 +25,12 @@ union color3f
     struct{float y,cb,cr;};
 };
 
+union color3b
+{
+    struct{uint8 r,g,b;};
+    struct{uint8 y,cb,cr;};
+};
+
 union color4f
 {
     struct{float r,g,b,a;};
@@ -36,4 +42,11 @@ union color4b
     uint32 rgba;
     struct{uint8 r,g,b,a;};
     struct{uint8 y,cb,cr,a;};
+
+    void operator = (const color3b &rgb)
+    {
+        r=rgb.r;
+        g=rgb.g;
+        b=rgb.b;
+    }
 };

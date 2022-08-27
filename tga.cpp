@@ -77,6 +77,18 @@ bool SaveToTGA(const char *filename,Bitmap4b *bmp)
     return(true);
 }
 
+void RGB2RGBA(color4b *rgba,const color3b *rgb,uint count)
+{
+    for(uint i=0;i<count;i++)
+    {
+        *rgba=*rgb;
+        rgba->a=255;
+
+        ++rgba;
+        ++rgb;
+    }
+}
+
 Bitmap4b *LoadFromTGA(const char *filename)
 {
     int fp;
@@ -92,31 +104,58 @@ Bitmap4b *LoadFromTGA(const char *filename)
 
     _read(fp,&header,sizeof(TGAHeader));
 
-    if(header.image_type!=2
-     ||header.bit!=32)
+    if(header.image_type!=2)
     {
         _close(fp);
         return(nullptr);
     }
-
-    color4b *data=new color4b[header.width*header.height];
-
+    
     Bitmap4b *bmp=new Bitmap4b(new BitmapDataAlloc<color4b>(header.width,header.height));
 
     desc.image_desc=header.image_desc;
 
-    if(desc.top_to_bottom)
+    if(header.bit==24)
     {
-        _read(fp,bmp->data(),header.width*header.height*4);
-    }
-    else
-    {
-        color4b *tp=bmp->data()+(header.height-1)*header.width;
-
-        for(int r=0;r<header.height;r++)
+        if(desc.top_to_bottom)
         {
-            _read(fp,tp,header.width*4);
-            tp-=header.width;
+            color3b *rgb=new color3b[header.width*header.height];
+
+            _read(fp,rgb,header.width*header.height*3);
+
+            RGB2RGBA(bmp->data(),rgb,header.width*header.height);
+
+            delete[] rgb;
+        }
+        else
+        {
+            color3b *rgb=new color3b[header.width];
+            color4b *tp=bmp->data()+(header.height-1)*header.width;
+
+            for(int r=0;r<header.height;r++)
+            {
+                _read(fp,rgb,header.width*3);
+                RGB2RGBA(tp,rgb,header.width);
+                tp-=header.width;
+            }
+
+            delete[] rgb;
+        }
+    }
+    else if(header.bit==32)
+    {
+        if(desc.top_to_bottom)
+        {
+            _read(fp,bmp->data(),header.width*header.height*4);
+        }
+        else
+        {
+            color4b *tp=bmp->data()+(header.height-1)*header.width;
+
+            for(int r=0;r<header.height;r++)
+            {
+                _read(fp,tp,header.width*4);
+                tp-=header.width;
+            }
         }
     }
 

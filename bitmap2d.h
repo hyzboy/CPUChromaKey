@@ -91,8 +91,9 @@ public:
     }
 };//template<typename T> struct BitmapView
 
+using Bitmap3b=BitmapView<color3b>;
 using Bitmap4b=BitmapView<color4b>;
 using Bitmap4f=BitmapView<color4f>;
 
-bool SaveToTGA(const char *filename,Bitmap4f *bmp);
+bool SaveToTGA(const char *filename,Bitmap4b *bmp);
 Bitmap4b *LoadFromTGA(const char *filename);
