@@ -74,20 +74,20 @@ public:
     bool get(const pos2i &pos,T &color)
     {
         if(!bmp
-         ||pos.x<0||pos.x>=width
-         ||pos.y<0||pos.y>=height)return false;
+         ||pos.x<0||pos.x>=bmp->width
+         ||pos.y<0||pos.y>=bmp->height)return false;
 
-        color=bmp->data[pos.x+pos.y*width];
+        color=bmp->data[pos.x+pos.y*bmp->width];
         return(true);
     }
 
     void set(const pos2i &pos,const T &color)
     {
         if(!bmp
-         ||pos.x<0||pos.x>=width
-         ||pos.y<0||pos.y>=height)return;
+         ||pos.x<0||pos.x>=bmp->width
+         ||pos.y<0||pos.y>=bmp->height)return;
 
-         bmp->data[pos.x+pos.y*width]=color;
+         bmp->data[pos.x+pos.y*bmp->width]=color;
     }
 };//template<typename T> struct BitmapView
 

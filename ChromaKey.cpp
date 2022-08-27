@@ -1,6 +1,17 @@
 #include <iostream>
 #include"bitmap2d.h"
 
+void ChromaBitmap(Bitmap4b *bmp)
+{
+    for(uint row=0;row<bmp->height();row++)
+    {
+        for(uint col=0;col<bmp->width();col++)
+        {
+
+        }
+    }
+}
+
 int main(int argc,char **argv)
 {
     if(argc<3)
@@ -19,6 +30,8 @@ int main(int argc,char **argv)
         std::cerr<<"Load TGA failed!"<<std::endl;
         return 1;
     }
+
+    ChromaBitmap(bmp);
 
     if(!SaveToTGA(argv[1],bmp))
     {
