@@ -71,13 +71,13 @@ public:
         return bmp?bmp->data:nullptr;
     }
 
-    bool get(const pos2i &pos,T &color)
+    bool get(const int x,const int y,T &color)
     {
         if(!bmp
-         ||pos.x<0||pos.x>=bmp->width
-         ||pos.y<0||pos.y>=bmp->height)return false;
+         ||x<0||x>=bmp->width
+         ||y<0||y>=bmp->height)return false;
 
-        color=bmp->data[pos.x+pos.y*bmp->width];
+        color=bmp->data[x+y*bmp->width];
         return(true);
     }
 
@@ -97,3 +97,5 @@ using Bitmap4f=BitmapView<color4f>;
 
 bool SaveToTGA(const char *filename,Bitmap4b *bmp);
 Bitmap4b *LoadFromTGA(const char *filename);
+
+bool RGB2YCbCr(Bitmap4f *,Bitmap4b *);
