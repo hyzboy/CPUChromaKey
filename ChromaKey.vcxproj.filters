@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChromaKey.cpp">
+    <ClCompile Include="Chroma.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tga.cpp">
@@ -24,12 +24,18 @@
     <ClCompile Include="Bitmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="testmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="datatype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bitmap2d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Chroma.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp" />
-    <ClCompile Include="ChromaKey.cpp" />
+    <ClCompile Include="Chroma.cpp" />
+    <ClCompile Include="testmain.cpp" />
     <ClCompile Include="tga.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bitmap2d.h" />
+    <ClInclude Include="Chroma.h" />
     <ClInclude Include="datatype.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

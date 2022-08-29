@@ -20,4 +20,6 @@ bool RGB2YCbCr(Bitmap4f *yuv,Bitmap4b *rgb)
         ++tp;
         ++sp;
     }
+
+    return(true);
 }

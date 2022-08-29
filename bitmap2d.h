@@ -2,6 +2,9 @@
 
 #include"datatype.h"
 
+/**
+ * 纯引用型位图数据，数据由用户外部传入，需用户自行释放内存
+ */
 template<typename T> struct BitmapData
 {
     int width,height;
@@ -25,6 +28,9 @@ public:
     virtual ~BitmapData()=default;
 };
 
+/**
+ * 自分配位图数据，自动分配内存，自动释放
+ */
 template<typename T> struct BitmapDataAlloc:public BitmapData<T>
 {
 public:
@@ -44,6 +50,9 @@ public:
     }
 };
 
+/**
+ * 位图访问视图，需外部传入位图数据对象
+ */
 template<typename T> struct BitmapView
 {
 protected:
